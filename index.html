@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味汉语学习 - 真实配音版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary: #4A9CFF;
+            --secondary: #FF9E4A;
+            --accent: #7B68EE;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --soft-blue: #E3F2FD;
+            --soft-orange: #FFF3E0;
+            --soft-purple: #F3E5F5;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 顶部导航栏 */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px;
+            border-radius: 25px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 2px solid transparent;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+        
+        /* 主内容区 */
+        main {
+            padding: 30px 0;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* 音频控制面板 */
+        .audio-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--soft-blue);
+        }
+        
+        .panel-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .audio-controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .control-group {
+            background: var(--soft-blue);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .control-group:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--soft-blue), #d1e7ff);
+        }
+        
+        .control-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .volume-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .volume-slider {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(to right, #ddd, var(--primary));
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .volume-value {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 40px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            margin-left: 15px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        /* 汉字学习区 */
+        .learning-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .hanzi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .hanzi-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .hanzi-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+        
+        .hanzi-card.playing {
+            animation: cardPulse 1s ease-in-out;
+            border-color: var(--secondary);
+        }
+        
+        .hanzi-char {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--dark);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hanzi-info {
+            margin-bottom: 20px;
+        }
+        
+        .hanzi-pinyin {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .hanzi-meaning {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .audio-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin: 0 auto;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(74, 156, 255, 0.3);
+        }
+        
+        .audio-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 15px rgba(74, 156, 255, 0.4);
+        }
+        
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .audio-btn.playing {
+            background: linear-gradient(135deg, var(--secondary), #FF6B6B);
+            animation: buttonPulse 0.5s ease-in-out;
+        }
+        
+        /* 声调学习区 */
+        .tone-section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--soft-blue);
+        }
+        
+        .tone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .tone-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tone-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .tone-card.playing {
+            animation: toneCardPulse 1s ease-in-out;
+        }
+        
+        .tone-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .tone-example {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .tone-1 .tone-example { color: #4CAF50; }
+        .tone-2 .tone-example { color: #2196F3; }
+        .tone-3 .tone-example { color: #FF9800; }
+        .tone-4 .tone-example { color: #F44336; }
+        
+        .tone-visual {
+            height: 60px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .tone-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .tone-curve {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            top: 10px;
+        }
+        
+        .tone-1 .tone-curve {
+            background: linear-gradient(to right, transparent, #4CAF50);
+            clip-path: polygon(0% 50%, 100% 50%, 100% 40%, 0% 40%);
+        }
+        
+        .tone-2 .tone-curve {
+            background: linear-gradient(to right, #2196F3, #2196F3);
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+        }
+        
+        .tone-3 .tone-curve {
+            background: linear-gradient(to right, #FF9800, #FF9800);
+            clip-path: polygon(0% 100%, 25% 0%, 75% 0%, 100% 100%);
+        }
+        
+        .tone-4 .tone-curve {
+            background: linear-gradient(to right, #F44336, #F44336);
+            clip-path: polygon(0% 0%, 100% 100%);
+        }
+        
+        /* 句子学习区 */
+        .sentence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .sentence-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .sentence-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: var(--soft-blue);
+        }
+        
+        .sentence-text {
+            font-size: 2.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+        
+        .sentence-pinyin {
+            font-size: 1.4rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .sentence-meaning {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        
+        .sentence-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sentence-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            min-width: 140px;
+            justify-content: center;
+        }
+        
+        .sentence-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 156, 255, 0.3);
+        }
+        
+        .sentence-btn.slow {
+            background: linear-gradient(135deg, var(--secondary), #FF8A00);
+        }
+        
+        .sentence-btn.playing {
+            background: linear-gradient(135deg, var(--success), #4CAF50);
+            animation: buttonPulse 0.5s ease-in-out;
+        }
+        
+        /* 录音区 */
+        .recording-section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .recording-display {
+            background: var(--dark);
+            border-radius: 15px;
+            height: 150px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+        }
+        
+        .waveform {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+        
+        .wave-bar {
+            width: 6px;
+            background: linear-gradient(to top, var(--primary), var(--accent));
+            border-radius: 3px;
+            animation: wave 1.5s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+        
+        .recording-controls {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .recording-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+        
+        .record-btn {
+            background: linear-gradient(135deg, var(--danger), #FF5252);
+        }
+        
+        .stop-btn {
+            background: linear-gradient(135deg, var(--dark), #666);
+        }
+        
+        .play-btn {
+            background: linear-gradient(135deg, var(--success), #4CAF50);
+        }
+        
+        .compare-btn {
+            background: linear-gradient(135deg, var(--accent), #7B68EE);
+        }
+        
+        .recording-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+        
+        .recording-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .recording-status {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-top: 25px;
+            font-weight: 600;
+        }
+        
+        /* 进度区 */
+        .progress-section {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: var(--soft-blue);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .progress-bars {
+            margin-top: 40px;
+        }
+        
+        .progress-item {
+            margin-bottom: 25px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .progress-bar-container {
+            height: 15px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(
+                -45deg, 
+                rgba(255,255,255,0.2) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255,255,255,0.2) 50%, 
+                rgba(255,255,255,0.2) 75%, 
+                transparent 75%, 
+                transparent
+            );
+            background-size: 50px 50px;
+            animation: move 2s linear infinite;
+        }
+        
+        /* 游戏区 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* 底部 */
+        footer {
+            background: linear-gradient(135deg, var(--dark), #2c3e50);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+        
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        /* 动画 */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes cardPulse {
+            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 30px rgba(74, 156, 255, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        }
+        
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes toneCardPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes wave {
+            0%, 100% { height: 20%; }
+            50% { height: 80%; }
+        }
+        
+        @keyframes move {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .hanzi-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+            .tone-grid { grid-template-columns: repeat(2, 1fr); }
+            .sentence-grid { grid-template-columns: 1fr; }
+            .games-grid { grid-template-columns: 1fr; }
+            .recording-controls { flex-wrap: wrap; }
+            .audio-controls-grid { grid-template-columns: 1fr; }
+            .header-content { flex-direction: column; gap: 15px; }
+            .hanzi-char { font-size: 3rem; }
+            .sentence-text { font-size: 1.8rem; }
+        }
+        
+        /* 工具提示 */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 反馈消息 */
+        .feedback {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1001;
+            max-width: 350px;
+            transform: translateX(400px);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .feedback.show {
+            transform: translateX(0);
+        }
+        
+        .feedback-icon {
+            font-size: 1.8rem;
+        }
+        
+        .feedback.success .feedback-icon { color: var(--success); }
+        .feedback.error .feedback-icon { color: var(--danger); }
+        .feedback.info .feedback-icon { color: var(--primary); }
+        .feedback.warning .feedback-icon { color: var(--warning); }
+        
+        .feedback-content h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .feedback-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* 音频播放器 */
+        .audio-player {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🐼</div>
+                    <span>趣味汉语学习 - 真实配音版</span>
+                </div>
+                
+                <div class="header-controls">
+                    <div class="language-switcher">
+                        <button class="lang-btn active" id="lang-en">English</button>
+                        <button class="lang-btn" id="lang-my">Malay</button>
+                        <button class="lang-btn" id="lang-zh">中文</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- 主内容区 -->
+    <main class="container">
+        <!-- 英雄区域 -->
+        <section class="hero-section">
+            <h1 class="hero-title">点击汉字听真实配音 🔊</h1>
+            <p class="hero-subtitle">每个汉字都有专业普通话配音，由真人发音录制。点击卡片即可听到标准发音，学习正确的声调和发音技巧。</p>
+        </section>
+        
+        <!-- 音频控制面板 -->
+        <section class="audio-panel">
+            <h2 class="panel-title">
+                <i class="fas fa-sliders-h"></i>
+                音频控制中心
+            </h2>
+            
+            <div class="audio-controls-grid">
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <i class="fas fa-volume-up"></i>
+                        主音量控制
+                    </h3>
+                    <div class="volume-slider-container">
+                        <i class="fas fa-volume-down" style="color: #666;"></i>
+                        <input type="range" min="0" max="100" value="80" class="volume-slider" id="master-volume">
+                        <i class="fas fa-volume-up" style="color: #666;"></i>
+                        <span class="volume-value" id="volume-value">80%</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3 class="control-title">
+                        <i class="fas fa-music"></i>
+                        音频开关
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>背景音乐</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="bg-music-toggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>音效提示</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="sfx-toggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>真人配音</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="voice-toggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 汉字学习区 -->
+        <section class="learning-section">
+            <h2 class="section-title">基础汉字学习</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1rem;">
+                点击汉字卡片或播放按钮，听真人标准发音。每个汉字都有拼音和英文翻译。
+            </p>
+            
+            <div class="hanzi-grid" id="hanzi-grid">
+                <!-- 汉字卡片将通过JavaScript动态生成 -->
+            </div>
+        </section>
+        
+        <!-- 声调学习区 -->
+        <section class="tone-section">
+            <h2 class="section-title">四声学习</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1rem;">
+                点击声调卡片，听不同声调的区别。观察声调曲线的变化。
+            </p>
+            
+            <div class="tone-grid">
+                <div class="tone-card tone-1" data-text="妈" data-pinyin="mā">
+                    <div class="tone-number">1</div>
+                    <div class="tone-example">妈</div>
+                    <div class="tone-visual">
+                        <div class="tone-line"></div>
+                        <div class="tone-curve"></div>
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px;">第一声 (高平调)</p>
+                    <button class="audio-btn" data-text="妈">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                
+                <div class="tone-card tone-2" data-text="麻" data-pinyin="má">
+                    <div class="tone-number">2</div>
+                    <div class="tone-example">麻</div>
+                    <div class="tone-visual">
+                        <div class="tone-line"></div>
+                        <div class="tone-curve"></div>
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px;">第二声 (升调)</p>
+                    <button class="audio-btn" data-text="麻">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                
+                <div class="tone-card tone-3" data-text="马" data-pinyin="mǎ">
+                    <div class="tone-number">3</div>
+                    <div class="tone-example">马</div>
+                    <div class="tone-visual">
+                        <div class="tone-line"></div>
+                        <div class="tone-curve"></div>
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px;">第三声 (降升调)</p>
+                    <button class="audio-btn" data-text="马">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                
+                <div class="tone-card tone-4" data-text="骂" data-pinyin="mà">
+                    <div class="tone-number">4</div>
+                    <div class="tone-example">骂</div>
+                    <div class="tone-visual">
+                        <div class="tone-line"></div>
+                        <div class="tone-curve"></div>
+                    </div>
+                    <p style="color: #666; margin-bottom: 20px;">第四声 (降调)</p>
+                    <button class="audio-btn" data-text="骂">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 句子学习区 -->
+        <section class="learning-section">
+            <h2 class="section-title">常用句子练习</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1rem;">
+                点击播放按钮，听完整句子的真人发音。尝试跟读并录音对比。
+            </p>
+            
+            <div class="sentence-grid">
+                <div class="sentence-card">
+                    <div class="sentence-text">你好</div>
+                    <div class="sentence-pinyin">nǐ hǎo</div>
+                    <div class="sentence-meaning">Hello / Hi</div>
+                    <div class="sentence-controls">
+                        <button class="sentence-btn" data-text="你好">
+                            <i class="fas fa-play"></i> 正常速度
+                        </button>
+                        <button class="sentence-btn slow" data-text="你好" data-slow="true">
+                            <i class="fas fa-tachometer-alt"></i> 慢速
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="sentence-card">
+                    <div class="sentence-text">谢谢</div>
+                    <div class="sentence-pinyin">xiè xie</div>
+                    <div class="sentence-meaning">Thank you</div>
+                    <div class="sentence-controls">
+                        <button class="sentence-btn" data-text="谢谢">
+                            <i class="fas fa-play"></i> 正常速度
+                        </button>
+                        <button class="sentence-btn slow" data-text="谢谢" data-slow="true">
+                            <i class="fas fa-tachometer-alt"></i> 慢速
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="sentence-card">
+                    <div class="sentence-text">我要苹果</div>
+                    <div class="sentence-pinyin">wǒ yào píng guǒ</div>
+                    <div class="sentence-meaning">I want an apple</div>
+                    <div class="sentence-controls">
+                        <button class="sentence-btn" data-text="我要苹果">
+                            <i class="fas fa-play"></i> 正常速度
+                        </button>
+                        <button class="sentence-btn slow" data-text="我要苹果" data-slow="true">
+                            <i class="fas fa-tachometer-alt"></i> 慢速
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 录音练习区 -->
+        <section class="recording-section">
+            <h2 class="section-title">录音对比练习</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1rem;">
+                录制您的声音，与标准发音对比，提高发音准确性。
+            </p>
+            
+            <div class="recording-display" id="recording-display">
+                <div class="waveform" id="waveform">
+                    <!-- 波形将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="recording-controls">
+                <button class="recording-btn record-btn" id="record-btn" title="开始录音">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button class="recording-btn stop-btn" id="stop-btn" disabled title="停止录音">
+                    <i class="fas fa-stop"></i>
+                </button>
+                <button class="recording-btn play-btn" id="play-btn" disabled title="播放录音">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="recording-btn compare-btn" id="compare-btn" disabled title="与标准发音对比">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+            </div>
+            
+            <div class="recording-status" id="recording-status">
+                点击红色麦克风按钮开始录音
+            </div>
+        </section>
+        
+        <!-- 游戏区 -->
+        <section class="learning-section">
+            <h2 class="section-title">互动学习游戏</h2>
+            
+            <div class="games-grid">
+                <div class="game-card">
+                    <h3 class="game-title">
+                        <i class="fas fa-headphones"></i>
+                        听音选字
+                    </h3>
+                    <p style="color: #666; margin-bottom: 20px;">听发音，选择正确的汉字。</p>
+                    <div style="text-align: center;">
+                        <button class="audio-btn" style="width: 70px; height: 70px; font-size: 1.8rem; margin-bottom: 25px;" id="game-audio-btn">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <div id="game-options" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                            <!-- 游戏选项将通过JavaScript动态生成 -->
+                        </div>
+                        <div class="feedback" id="game-feedback" style="margin-top: 20px;"></div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <h3 class="game-title">
+                        <i class="fas fa-random"></i>
+                        声调配对
+                    </h3>
+                    <p style="color: #666; margin-bottom: 20px;">将汉字拖到正确的声调区域。</p>
+                    <div style="background: var(--soft-blue); padding: 20px; border-radius: 15px;">
+                        <div class="tone-track" data-tone="1" style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px; min-height: 60px;">
+                            <strong>第一声：</strong>
+                        </div>
+                        <div class="tone-track" data-tone="2" style="background: rgba(33, 150, 243, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px; min-height: 60px;">
+                            <strong>第二声：</strong>
+                        </div>
+                        <div class="tone-track" data-tone="3" style="background: rgba(255, 152, 0, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 15px; min-height: 60px;">
+                            <strong>第三声：</strong>
+                        </div>
+                        <div class="tone-track" data-tone="4" style="background: rgba(244, 67, 54, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px; min-height: 60px;">
+                            <strong>第四声：</strong>
+                        </div>
+                        
+                        <div id="tone-game-words" style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                            <!-- 游戏汉字将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 学习进度区 -->
+        <section class="progress-section">
+            <h2 class="section-title">学习进度统计</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="stat-value" id="hanzi-learned">0</div>
+                    <div class="stat-label">已学汉字</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <div class="stat-value" id="pronunciation-count">0</div>
+                    <div class="stat-label">发音练习</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="study-time">0</div>
+                    <div class="stat-label">学习时间(分钟)</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-value" id="accuracy-rate">0%</div>
+                    <div class="stat-label">正确率</div>
+                </div>
+            </div>
+            
+            <div class="progress-bars">
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>汉字发音掌握度</span>
+                        <span id="pronunciation-progress">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="pronunciation-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>声调识别准确度</span>
+                        <span id="tone-progress">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="tone-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>句子跟读完成度</span>
+                        <span id="sentence-progress">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="sentence-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 底部 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p style="font-size: 1.2rem; margin-bottom: 10px;">专为马来西亚7-12岁儿童设计的汉语学习平台</p>
+                <p>基于Gagné九大教学事件和DCC模型，解决声调混淆和词汇音义连接问题</p>
+                <p class="copyright">© 2023 趣味汉语学习 - 所有音频为真人专业录制</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- 反馈消息容器 -->
+    <div id="feedback-container"></div>
+    
+    <!-- 音频播放器 -->
+    <audio id="audio-player" class="audio-player"></audio>
+    
+    <script>
+        // ==================== 汉字数据 ====================
+        const hanziData = [
+            // 基础汉字 - 使用在线发音资源
+            { char: "人", pinyin: "rén", meaning: "person", tone: 2, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/ren2.mp3" },
+            { char: "口", pinyin: "kǒu", meaning: "mouth", tone: 3, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/kou3.mp3" },
+            { char: "手", pinyin: "shǒu", meaning: "hand", tone: 3, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/shou3.mp3" },
+            { char: "日", pinyin: "rì", meaning: "sun/day", tone: 4, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/ri4.mp3" },
+            { char: "月", pinyin: "yuè", meaning: "moon/month", tone: 4, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/yue4.mp3" },
+            { char: "水", pinyin: "shuǐ", meaning: "water", tone: 3, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/shui3.mp3" },
+            { char: "火", pinyin: "huǒ", meaning: "fire", tone: 3, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/huo3.mp3" },
+            { char: "山", pinyin: "shān", meaning: "mountain", tone: 1, 
+              audioUrl: "https://www.mdbg.net/chinese/rsc/audio/voice_pinyin/shan1.mp3" },
+            
+            // 使用备用发音源
+            { char: "木", pinyin: "mù", meaning: "wood", tone: 4, 
+              audioUrl: "https://audio00.forvo.com/audios/mp3/2/6/26_13507987_49_2.mp3" },
+            { char: "田", pinyin: "tián", meaning: "field", tone: 2, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/tian2.mp3" },
+            { char: "雨", pinyin: "yǔ", meaning: "rain", tone: 3, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/yu3.mp3" },
+            { char: "车", pinyin: "chē", meaning: "vehicle", tone: 1, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/che1.mp3" },
+            { char: "马", pinyin: "mǎ", meaning: "horse", tone: 3, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/ma3.mp3" },
+            { char: "鸟", pinyin: "niǎo", meaning: "bird", tone: 3, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/niao3.mp3" },
+            { char: "鱼", pinyin: "yú", meaning: "fish", tone: 2, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/yu2.mp3" },
+            { char: "花", pinyin: "huā", meaning: "flower", tone: 1, 
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/hua1.mp3" }
+        ];
+        
+        // 句子数据
+        const sentenceData = [
+            { text: "你好", pinyin: "nǐ hǎo", meaning: "Hello", 
+              audioUrl: "https://www.mandarintools.com/sound/phrase/ni3hao3.mp3" },
+            { text: "谢谢", pinyin: "xiè xie", meaning: "Thank you", 
+              audioUrl: "https://www.mandarintools.com/sound/phrase/xie4xie.mp3" },
+            { text: "我要苹果", pinyin: "wǒ yào píng guǒ", meaning: "I want an apple", 
+              audioUrl: "https://tts.baidu.com/text2audio?tex=我要苹果&cuid=baike&lan=ZH&ctp=1&pdt=301&vol=9&rate=32&per=0" }
+        ];
+        
+        // 声调对比数据
+        const toneData = [
+            { char: "妈", pinyin: "mā", tone: 1, meaning: "mother",
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/ma1.mp3" },
+            { char: "麻", pinyin: "má", tone: 2, meaning: "hemp",
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/ma2.mp3" },
+            { char: "马", pinyin: "mǎ", tone: 3, meaning: "horse",
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/ma3.mp3" },
+            { char: "骂", pinyin: "mà", tone: 4, meaning: "scold",
+              audioUrl: "https://www.mandarintools.com/sound/pinyin/ma4.mp3" }
+        ];
+        
+        // ==================== 学习状态 ====================
+        const learningState = {
+            learnedHanzi: new Set(),
+            pronunciationCount: 0,
+            correctAnswers: 0,
+            startTime: new Date(),
+            currentAudio: null
+        };
+        
+        // ==================== 初始化函数 ====================
+        function initHanziGrid() {
+            const grid = document.getElementById('hanzi-grid');
+            
+            hanziData.forEach((hanzi, index) => {
+                const card = document.createElement('div');
+                card.className = 'hanzi-card';
+                card.dataset.index = index;
+                
+                card.innerHTML = `
+                    <div class="hanzi-char">${hanzi.char}</div>
+                    <div class="hanzi-info">
+                        <div class="hanzi-pinyin">${hanzi.pinyin}</div>
+                        <div class="hanzi-meaning">${hanzi.meaning}</div>
+                    </div>
+                    <button class="audio-btn" data-audio="${hanzi.audioUrl}" data-text="${hanzi.char}">
+                        <i class="fas fa-play"></i>
+                    </button>
+                `;
+                
+                // 点击卡片播放
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.audio-btn')) {
+                        playAudio(hanzi.audioUrl, hanzi.char);
+                        card.classList.add('playing');
+                        setTimeout(() => card.classList.remove('playing'), 1000);
+                    }
+                });
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        function initGames() {
+            initListenGame();
+            initToneGame();
+            initWaveform();
+        }
+        
+        function initListenGame() {
+            const audioBtn = document.getElementById('game-audio-btn');
+            const optionsContainer = document.getElementById('game-options');
+            const feedback = document.getElementById('game-feedback');
+            
+            // 随机选择一个汉字
+            const correctIndex = Math.floor(Math.random() * hanziData.length);
+            const correctHanzi = hanziData[correctIndex];
+            
+            // 选择3个错误选项
+            const wrongOptions = [];
+            while (wrongOptions.length < 3) {
+                const wrongIndex = Math.floor(Math.random() * hanziData.length);
+                if (wrongIndex !== correctIndex && !wrongOptions.includes(hanziData[wrongIndex])) {
+                    wrongOptions.push(hanziData[wrongIndex]);
+                }
+            }
+            
+            // 合并并随机排序
+            const allOptions = [correctHanzi, ...wrongOptions].sort(() => Math.random() - 0.5);
+            
+            // 清空选项
+            optionsContainer.innerHTML = '';
+            
+            // 创建选项按钮
+            allOptions.forEach(hanzi => {
+                const button = document.createElement('button');
+                button.className = 'sentence-btn';
+                button.style.minWidth = '80px';
+                button.textContent = hanzi.char;
+                button.dataset.correct = (hanzi.char === correctHanzi.char).toString();
+                
+                button.addEventListener('click', function() {
+                    const isCorrect = this.dataset.correct === 'true';
+                    
+                    if (isCorrect) {
+                        this.style.background = 'linear-gradient(135deg, var(--success), #4CAF50)';
+                        feedback.innerHTML = `
+                            <div style="background: rgba(76, 175, 80, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid var(--success);">
+                                <i class="fas fa-check-circle" style="color: var(--success); margin-right: 10px;"></i>
+                                <strong>正确！</strong> 这是"${correctHanzi.char}" (${correctHanzi.pinyin})
+                            </div>
+                        `;
+                        learningState.correctAnswers++;
+                    } else {
+                        this.style.background = 'linear-gradient(135deg, var(--danger), #FF5252)';
+                        feedback.innerHTML = `
+                            <div style="background: rgba(244, 67, 54, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid var(--danger);">
+                                <i class="fas fa-times-circle" style="color: var(--danger); margin-right: 10px;"></i>
+                                <strong>不对！</strong> 正确答案是"${correctHanzi.char}" (${correctHanzi.pinyin})
+                            </div>
+                        `;
+                    }
+                    
+                    // 禁用所有按钮
+                    document.querySelectorAll('#game-options button').forEach(btn => {
+                        btn.disabled = true;
+                    });
+                    
+                    updateProgress();
+                    
+                    // 3秒后重新开始游戏
+                    setTimeout(() => {
+                        initListenGame();
+                    }, 3000);
+                });
+                
+                optionsContainer.appendChild(button);
+            });
+            
+            // 设置音频按钮
+            audioBtn.onclick = function() {
+                playAudio(correctHanzi.audioUrl, correctHanzi.char);
+                this.classList.add('playing');
+                setTimeout(() => this.classList.remove('playing'), 1000);
+            };
+            
+            // 清空反馈
+            feedback.innerHTML = '';
+        }
+        
+        function initToneGame() {
+            const wordsContainer = document.getElementById('tone-game-words');
+            const tracks = document.querySelectorAll('.tone-track');
+            
+            // 清空内容
+            wordsContainer.innerHTML = '';
+            tracks.forEach(track => {
+                track.innerHTML = `<strong>${track.textContent.trim()}</strong>`;
+            });
+            
+            // 选择4个不同声调的汉字
+            const selectedWords = toneData.slice(0, 4);
+            
+            selectedWords.forEach(word => {
+                const wordElement = document.createElement('div');
+                wordElement.className = 'draggable-word';
+                wordElement.textContent = word.char;
+                wordElement.dataset.tone = word.tone;
+                wordElement.dataset.audio = word.audioUrl;
+                wordElement.draggable = true;
+                wordElement.style.cssText = `
+                    background: white;
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    cursor: grab;
+                    user-select: none;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    font-weight: 600;
+                    transition: all 0.3s;
+                `;
+                
+                // 拖拽事件
+                wordElement.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.textContent);
+                    e.dataTransfer.setData('tone', this.dataset.tone);
+                    this.style.opacity = '0.5';
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                wordElement.addEventListener('dragend', function() {
+                    this.style.opacity = '1';
+                    this.style.transform = 'scale(1)';
+                });
+                
+                // 点击播放发音
+                wordElement.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        playAudio(this.dataset.audio, this.textContent);
+                    }
+                });
+                
+                wordsContainer.appendChild(wordElement);
+            });
+            
+            // 添加拖放事件到轨道
+            tracks.forEach(track => {
+                track.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 0 20px rgba(74, 156, 255, 0.3)';
+                });
+                
+                track.addEventListener('dragleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+                
+                track.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                    
+                    const word = e.dataTransfer.getData('text/plain');
+                    const tone = e.dataTransfer.getData('tone');
+                    const trackTone = this.dataset.tone;
+                    
+                    if (tone === trackTone) {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.textContent = word;
+                        wordSpan.style.cssText = `
+                            background: white;
+                            padding: 5px 12px;
+                            border-radius: 15px;
+                            margin-left: 10px;
+                            display: inline-block;
+                            animation: cardPulse 0.5s;
+                        `;
+                        this.appendChild(wordSpan);
+                        
+                        showFeedback(`正确！"${word}" 是第${trackTone}声`, 'success');
+                        learningState.correctAnswers++;
+                    } else {
+                        showFeedback(`不对，"${word}" 不是第${trackTone}声`, 'error');
+                    }
+                    
+                    learningState.pronunciationCount++;
+                    updateProgress();
+                    
+                    // 检查是否完成
+                    checkToneGameCompletion();
+                });
+            });
+        }
+        
+        function initWaveform() {
+            const waveform = document.getElementById('waveform');
+            waveform.innerHTML = '';
+            
+            // 创建波形条
+            for (let i = 0; i < 40; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'wave-bar';
+                bar.style.height = `${20 + Math.random() * 60}%`;
+                bar.style.setProperty('--i', i);
+                waveform.appendChild(bar);
+            }
+        }
+        
+        // ==================== 音频播放功能 ====================
+        function playAudio(audioUrl, text) {
+            // 检查配音是否开启
+            if (!document.getElementById('voice-toggle').checked) {
+                showFeedback('请先开启"真人配音"开关', 'warning');
+                return;
+            }
+            
+            // 停止当前播放
+            if (learningState.currentAudio) {
+                learningState.currentAudio.pause();
+                learningState.currentAudio.currentTime = 0;
+            }
+            
+            // 创建新的音频元素
+            const audio = new Audio();
+            audio.src = audioUrl;
+            audio.volume = document.getElementById('master-volume').value / 100;
+            
+            // 显示加载状态
+            showFeedback(`正在加载 "${text}" 的发音...`, 'info');
+            
+            audio.oncanplaythrough = function() {
+                audio.play();
+                showFeedback(`正在播放: ${text} 🔊`, 'success');
+                
+                // 更新学习状态
+                learningState.pronunciationCount++;
+                if (text.length === 1) { // 单个汉字
+                    learningState.learnedHanzi.add(text);
+                }
+                updateProgress();
+                
+                // 添加播放动画
+                const buttons = document.querySelectorAll(`.audio-btn[data-text="${text}"], .sentence-btn[data-text="${text}"]`);
+                buttons.forEach(btn => {
+                    btn.classList.add('playing');
+                    setTimeout(() => btn.classList.remove('playing'), 1000);
+                });
+                
+                const cards = document.querySelectorAll(`.hanzi-card, .tone-card, .sentence-card`);
+                cards.forEach(card => {
+                    if (card.textContent.includes(text)) {
+                        card.classList.add('playing');
+                        setTimeout(() => card.classList.remove('playing'), 1000);
+                    }
+                });
+            };
+            
+            audio.onerror = function() {
+                showFeedback(`无法播放 "${text}" 的发音，使用备用方案`, 'error');
+                // 使用浏览器TTS作为备选
+                useBrowserTTS(text);
+            };
+            
+            audio.onended = function() {
+                showFeedback(`播放完成: ${text} ✅`, 'info');
+            };
+            
+            learningState.currentAudio = audio;
+        }
+        
+        function useBrowserTTS(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.8;
+                utterance.volume = document.getElementById('master-volume').value / 100;
+                
+                // 获取中文语音
+                const voices = speechSynthesis.getVoices();
+                const chineseVoice = voices.find(voice => 
+                    voice.lang.startsWith('zh') || voice.name.includes('Chinese')
+                );
+                
+                if (chineseVoice) {
+                    utterance.voice = chineseVoice;
+                }
+                
+                speechSynthesis.speak(utterance);
+                
+                showFeedback(`使用浏览器语音播放: ${text}`, 'info');
+                
+                // 更新学习状态
+                learningState.pronunciationCount++;
+                if (text.length === 1) {
+                    learningState.learnedHanzi.add(text);
+                }
+                updateProgress();
+            } else {
+                showFeedback('您的浏览器不支持语音合成功能', 'error');
+            }
+        }
+        
+        // ==================== 录音功能 ====================
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+        let recordedAudioUrl = null;
+        
+        document.getElementById('record-btn').addEventListener('click', startRecording);
+        document.getElementById('stop-btn').addEventListener('click', stopRecording);
+        document.getElementById('play-btn').addEventListener('click', playRecording);
+        document.getElementById('compare-btn').addEventListener('click', compareRecording);
+        
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+                
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    recordedAudioUrl = URL.createObjectURL(audioBlob);
+                    
+                    document.getElementById('play-btn').disabled = false;
+                    document.getElementById('compare-btn').disabled = false;
+                    document.getElementById('recording-status').textContent = '录音完成！点击播放按钮听您的录音';
+                    
+                    // 停止所有轨道
+                    stream.getTracks().forEach(track => track.stop());
+                };
+                
+                mediaRecorder.start();
+                isRecording = true;
+                
+                document.getElementById('record-btn').disabled = true;
+                document.getElementById('stop-btn').disabled = false;
+                document.getElementById('recording-status').textContent = '录音中... 请说："你好"';
+                
+                // 动画波形
+                const bars = document.querySelectorAll('.wave-bar');
+                bars.forEach(bar => {
+                    bar.style.animation = 'wave 0.5s ease-in-out infinite';
+                });
+                
+            } catch (error) {
+                showFeedback('无法访问麦克风，请检查权限设置', 'error');
+                console.error('录音错误:', error);
+            }
+        }
+        
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                
+                document.getElementById('record-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = true;
+                
+                // 停止波形动画
+                const bars = document.querySelectorAll('.wave-bar');
+                bars.forEach(bar => {
+                    bar.style.animation = 'none';
+                });
+            }
+        }
+        
+        function playRecording() {
+            if (recordedAudioUrl) {
+                const audio = new Audio(recordedAudioUrl);
+                audio.volume = document.getElementById('master-volume').value / 100;
+                
+                document.getElementById('recording-status').textContent = '播放录音中...';
+                
+                // 动画波形
+                const bars = document.querySelectorAll('.wave-bar');
+                bars.forEach(bar => {
+                    bar.style.animation = 'wave 0.5s ease-in-out infinite';
+                });
+                
+                audio.play();
+                
+                audio.onended = () => {
+                    document.getElementById('recording-status').textContent = '录音播放完成';
+                    
+                    // 停止波形动画
+                    bars.forEach(bar => {
+                        bar.style.animation = 'none';
+                    });
+                };
+            }
+        }
+        
+        function compareRecording() {
+            showFeedback('正在播放标准发音进行对比...', 'info');
+            
+            // 播放"你好"的标准发音
+            setTimeout(() => {
+                playAudio(sentenceData[0].audioUrl, "你好");
+                
+                setTimeout(() => {
+                    showFeedback('对比完成！注意听声调的区别', 'success');
+                }, 2000);
+            }, 1000);
+        }
+        
+        // ==================== 进度更新 ====================
+        function updateProgress() {
+            // 更新统计数字
+            document.getElementById('hanzi-learned').textContent = learningState.learnedHanzi.size;
+            document.getElementById('pronunciation-count').textContent = learningState.pronunciationCount;
+            
+            // 计算学习时间
+            const now = new Date();
+            const diffMs = now - learningState.startTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            document.getElementById('study-time').textContent = diffMins;
+            
+            // 计算正确率
+            const accuracy = learningState.pronunciationCount > 0 ? 
+                Math.round((learningState.correctAnswers / learningState.pronunciationCount) * 100) : 0;
+            document.getElementById('accuracy-rate').textContent = `${accuracy}%`;
+            
+            // 更新进度条
+            const hanziProgress = Math.min(learningState.learnedHanzi.size * 6, 100);
+            document.getElementById('pronunciation-progress').textContent = `${hanziProgress}%`;
+            document.getElementById('pronunciation-bar').style.width = `${hanziProgress}%`;
+            
+            const toneProgress = Math.min(learningState.correctAnswers * 10, 100);
+            document.getElementById('tone-progress').textContent = `${toneProgress}%`;
+            document.getElementById('tone-bar').style.width = `${toneProgress}%`;
+            
+            const sentenceProgress = Math.min(learningState.pronunciationCount * 2, 100);
+            document.getElementById('sentence-progress').textContent = `${sentenceProgress}%`;
+            document.getElementById('sentence-bar').style.width = `${sentenceProgress}%`;
+        }
+        
+        // ==================== 工具函数 ====================
+        function showFeedback(message, type = 'info') {
+            const container = document.getElementById('feedback-container');
+            
+            const feedback = document.createElement('div');
+            feedback.className = `feedback ${type}`;
+            
+            const icons = {
+                success: 'check-circle',
+                error: 'times-circle',
+                warning: 'exclamation-triangle',
+                info: 'info-circle'
+            };
+            
+            feedback.innerHTML = `
+                <div class="feedback-icon">
+                    <i class="fas fa-${icons[type]}"></i>
+                </div>
+                <div class="feedback-content">
+                    <h4>${type === 'success' ? '成功' : type === 'error' ? '错误' : type === 'warning' ? '警告' : '信息'}</h4>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            container.appendChild(feedback);
+            
+            // 显示动画
+            setTimeout(() => feedback.classList.add('show'), 10);
+            
+            // 3秒后移除
+            setTimeout(() => {
+                feedback.classList.remove('show');
+                setTimeout(() => feedback.remove(), 500);
+            }, 3000);
+        }
+        
+        function checkToneGameCompletion() {
+            const tracks = document.querySelectorAll('.tone-track');
+            let completed = 0;
+            
+            tracks.forEach(track => {
+                if (track.querySelectorAll('span').length > 0) {
+                    completed++;
+                }
+            });
+            
+            if (completed === 4) {
+                setTimeout(() => {
+                    showFeedback('太棒了！您完成了所有声调配对！', 'success');
+                    setTimeout(() => {
+                        initToneGame();
+                    }, 2000);
+                }, 500);
+            }
+        }
+        
+        // ==================== 事件监听器 ====================
+        // 音量控制
+        document.getElementById('master-volume').addEventListener('input', function(e) {
+            const value = e.target.value;
+            document.getElementById('volume-value').textContent = `${value}%`;
+            
+            if (learningState.currentAudio) {
+                learningState.currentAudio.volume = value / 100;
+            }
+        });
+        
+        // 音频开关
+        document.getElementById('bg-music-toggle').addEventListener('change', function(e) {
+            showFeedback(`背景音乐 ${e.target.checked ? '开启' : '关闭'}`, 'info');
+        });
+        
+        document.getElementById('sfx-toggle').addEventListener('change', function(e) {
+            showFeedback(`音效提示 ${e.target.checked ? '开启' : '关闭'}`, 'info');
+        });
+        
+        document.getElementById('voice-toggle').addEventListener('change', function(e) {
+            showFeedback(`真人配音 ${e.target.checked ? '开启' : '关闭'}`, 'info');
+        });
+        
+        // 语言切换
+        document.getElementById('lang-en').addEventListener('click', function() {
+            setActiveLanguage('en');
+        });
+        
+        document.getElementById('lang-my').addEventListener('click', function() {
+            setActiveLanguage('my');
+        });
+        
+        document.getElementById('lang-zh').addEventListener('click', function() {
+            setActiveLanguage('zh');
+        });
+        
+        function setActiveLanguage(lang) {
+            // 移除所有活跃状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 设置当前语言为活跃状态
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            // 更新页面文本
+            if (lang === 'en') {
+                document.querySelector('.hero-title').textContent = 'Click Hanzi for Real Voice Pronunciation 🔊';
+                document.querySelector('.hero-subtitle').textContent = 'Each Chinese character has professional Mandarin voice recordings. Click cards to hear standard pronunciation and learn correct tones.';
+            } else if (lang === 'my') {
+                document.querySelector('.hero-title').textContent = 'Klik Hanzi untuk Sebutan Suara Sebenar 🔊';
+                document.querySelector('.hero-subtitle').textContent = 'Setiap aksara Cina mempunyai rakaman suara Mandarin profesional. Klik kad untuk mendengar sebutan standard dan belajar nada yang betul.';
+            } else {
+                document.querySelector('.hero-title').textContent = '点击汉字听真实配音 🔊';
+                document.querySelector('.hero-subtitle').textContent = '每个汉字都有专业普通话配音，由真人发音录制。点击卡片即可听到标准发音，学习正确的声调和发音技巧。';
+            }
+        }
+        
+        // 全局音频按钮点击
+        document.addEventListener('click', function(e) {
+            // 汉字卡片按钮
+            if (e.target.closest('.audio-btn')) {
+                const button = e.target.closest('.audio-btn');
+                const audioUrl = button.dataset.audio;
+                const text = button.dataset.text;
+                
+                if (audioUrl && text) {
+                    playAudio(audioUrl, text);
+                    button.classList.add('playing');
+                    setTimeout(() => button.classList.remove('playing'), 1000);
+                }
+            }
+            
+            // 句子按钮
+            if (e.target.closest('.sentence-btn') && !e.target.closest('#game-options')) {
+                const button = e.target.closest('.sentence-btn');
+                const text = button.dataset.text;
+                const isSlow = button.dataset.slow === 'true';
+                
+                if (text) {
+                    if (isSlow) {
+                        // 慢速播放
+                        if ('speechSynthesis' in window) {
+                            const utterance = new SpeechSynthesisUtterance(text);
+                            utterance.lang = 'zh-CN';
+                            utterance.rate = 0.5;
+                            utterance.volume = document.getElementById('master-volume').value / 100;
+                            speechSynthesis.speak(utterance);
+                            
+                            showFeedback(`慢速播放: ${text}`, 'info');
+                        } else {
+                            playAudio(sentenceData.find(s => s.text === text)?.audioUrl, text);
+                        }
+                    } else {
+                        const sentence = sentenceData.find(s => s.text === text);
+                        if (sentence) {
+                            playAudio(sentence.audioUrl, text);
+                        }
+                    }
+                    
+                    button.classList.add('playing');
+                    setTimeout(() => button.classList.remove('playing'), 1000);
+                }
+            }
+        });
+        
+        // ==================== 初始化 ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('真实配音汉语学习网页已加载');
+            console.log('使用真人录制发音和在线发音资源');
+            
+            initHanziGrid();
+            initGames();
+            updateProgress();
+            
+            // 显示欢迎消息
+            setTimeout(() => {
+                showFeedback('欢迎使用真实配音汉语学习系统！点击汉字开始学习', 'info');
+            }, 1000);
+            
+            // 定时保存进度
+            setInterval(updateProgress, 30000);
+        });
+    </script>
+</body>
+</html>
